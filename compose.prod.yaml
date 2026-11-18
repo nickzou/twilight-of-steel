@@ -1,0 +1,80 @@
+# Production override. Use together with compose.yaml:
+#   docker compose -f compose.yaml -f compose.prod.yaml up -d -V
+#
+# TLS and routing are handled by the server-wide Traefik container, which
+# discovers this service through the labels below on the external `proxy`
+# network. WordPress is never published on a host port.
+#
+# Contract with the Traefik setup (provisions repo): an entrypoint named
+# `websecure` and a certificate resolver named `letsencrypt`.
+
+services:
+  wordpress:
+    image: ghcr.io/nickzou/twilight-of-steel:${IMAGE_TAG:-latest}
+    build: !reset null
+    ports: !reset []
+    networks:
+      - default
+      - proxy
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: proxy
+      traefik.http.services.tos.loadbalancer.server.port: "80"
+      traefik.http.routers.tos.rule: "Host(`${SITE_HOST:?Set SITE_HOST in .env}`)"
+      traefik.http.routers.tos.entrypoints: websecure
+      traefik.http.routers.tos.tls.certresolver: letsencrypt
+      traefik.http.routers.tos-apex.rule: "Host(`${SITE_APEX:?Set SITE_APEX in .env}`)"
+      traefik.http.routers.tos-apex.entrypoints: websecure
+      traefik.http.routers.tos-apex.tls.certresolver: letsencrypt
+      traefik.http.routers.tos-apex.middlewares: tos-to-www
+      traefik.http.middlewares.tos-to-www.redirectregex.regex: "^https?://[^/]+/(.*)"
+      traefik.http.middlewares.tos-to-www.redirectregex.replacement: "https://${SITE_HOST}/$${1}"
+      traefik.http.middlewares.tos-to-www.redirectregex.permanent: "true"
+    environment:
+      WP_ENVIRONMENT_TYPE: production
+      WORDPRESS_AUTH_KEY: ${WP_AUTH_KEY:?}
+      WORDPRESS_SECURE_AUTH_KEY: ${WP_SECURE_AUTH_KEY:?}
+      WORDPRESS_LOGGED_IN_KEY: ${WP_LOGGED_IN_KEY:?}
+      WORDPRESS_NONCE_KEY: ${WP_NONCE_KEY:?}
+      WORDPRESS_AUTH_SALT: ${WP_AUTH_SALT:?}
+      WORDPRESS_SECURE_AUTH_SALT: ${WP_SECURE_AUTH_SALT:?}
+      WORDPRESS_LOGGED_IN_SALT: ${WP_LOGGED_IN_SALT:?}
+      WORDPRESS_NONCE_SALT: ${WP_NONCE_SALT:?}
+      # $$ keeps compose from interpolating PHP variables.
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_HOME', 'https://${SITE_HOST}');
+        define('WP_SITEURL', 'https://${SITE_HOST}');
+        if (($$_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https') {
+          $$_SERVER['HTTPS'] = 'on';
+        }
+
+  # Nightly gzipped dump into a host directory, so the server-level snapshots
+  # always contain a consistent copy of the database. Keeps 7 days.
+  db-backup:
+    image: mariadb:11
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      MARIADB_DATABASE: ${DB_NAME:-wordpress}
+      MARIADB_USER: ${DB_USER:-wordpress}
+      MARIADB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+    volumes:
+      - /var/backups/twilight-of-steel:/backups
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        set -eu
+        while true; do
+          out=/backups/twilight-of-steel-$$(date +%F).sql.gz
+          mariadb-dump -h db -u"$$MARIADB_USER" -p"$$MARIADB_PASSWORD" \
+            --single-transaction "$$MARIADB_DATABASE" | gzip > "$$out.tmp"
+          mv "$$out.tmp" "$$out"
+          find /backups -name 'twilight-of-steel-*.sql.gz' -mtime +7 -delete
+          sleep 86400
+        done
+
+networks:
+  proxy:
+    external: true

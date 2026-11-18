@@ -1,0 +1,11 @@
+/vendor/
+.DS_Store
+
+# Composer-installed plugins live in plugins/ and are not committed.
+# Custom plugins: add an exception, e.g. !/plugins/my-plugin/
+/plugins/*
+!/plugins/.gitkeep
+/node_modules/
+
+# Local environment
+/.env

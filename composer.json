@@ -1,0 +1,30 @@
+{
+  "name": "nickzou/twilight-of-steel",
+  "description": "Custom WordPress project",
+  "type": "project",
+  "license": "proprietary",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org",
+      "only": ["wpackagist-plugin/*", "wpackagist-theme/*"]
+    }
+  ],
+  "require": {
+    "php": ">=8.1",
+    "composer/installers": "^2.3"
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true
+    },
+    "sort-packages": true
+  },
+  "extra": {
+    "installer-paths": {
+      "plugins/{$name}/": ["type:wordpress-plugin"]
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}

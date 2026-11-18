@@ -1,0 +1,15 @@
+.git
+.gitignore
+.dockerignore
+.env
+.env.*
+node_modules
+vendor
+biome.json
+package.json
+pnpm-lock.yaml
+compose.yaml
+Dockerfile
+plugins/.gitkeep
+.github
+compose.prod.yaml
