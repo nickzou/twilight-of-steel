@@ -5,6 +5,7 @@
 # Custom plugins: add an exception, e.g. !/plugins/my-plugin/
 /plugins/*
 !/plugins/.gitkeep
+!/plugins/twilight-of-steel-core/
 /node_modules/
 
 # Local environment
