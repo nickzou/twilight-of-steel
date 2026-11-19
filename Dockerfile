@@ -11,3 +11,7 @@ RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist --no-in
 FROM wordpress:7.1-php8.4-apache
 COPY --from=plugins --chown=www-data:www-data /app/plugins/ /var/www/html/wp-content/plugins/
 COPY --chown=www-data:www-data twilight-of-steel/ /var/www/html/wp-content/themes/twilight-of-steel/
+
+# The uploads volume takes its ownership from this directory when first created.
+# Without it Docker creates the mount point as root and WordPress can't write.
+RUN install -d -o www-data -g www-data /var/www/html/wp-content/uploads
