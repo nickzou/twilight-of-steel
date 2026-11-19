@@ -1,11 +1,12 @@
 # syntax=docker/dockerfile:1
 
-# Stage 1: resolve Composer-managed plugins (WPackagist) into plugins/
+# Stage 1: resolve Composer-managed plugins (WPackagist) into plugins/, and
+# libraries (Carbon Fields) into the core plugin's vendor/ (see composer.json).
 FROM composer:2 AS plugins
 WORKDIR /app
 COPY composer.json composer.lock ./
 COPY plugins/ plugins/
-RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist --no-interaction
+RUN composer install --no-dev --no-scripts --optimize-autoloader --prefer-dist --no-interaction
 
 # Stage 2: WordPress with plugins and theme baked in
 FROM wordpress:7.1-php8.4-apache

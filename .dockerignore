@@ -5,6 +5,7 @@
 .env.*
 node_modules
 vendor
+plugins/twilight-of-steel-core/vendor
 biome.json
 package.json
 pnpm-lock.yaml
