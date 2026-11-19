@@ -13,3 +13,4 @@ Dockerfile
 plugins/.gitkeep
 .github
 compose.prod.yaml
+compose.override.yaml
