@@ -1,1 +1,11 @@
 /* Styles that theme.json cannot express. */
+
+/* Codex entry images run edge to edge on phones. 50% - 50vw cancels the
+   page's side padding, whatever it is. 600px matches WordPress's own mobile
+   breakpoint (where the navigation collapses). */
+@media (max-width: 599px) {
+  .single-codex .wp-block-post-featured-image {
+    /* biome-ignore lint/complexity/noImportantStyles: the constrained layout centres its children with margin: auto !important */
+    margin-inline: calc(50% - 50vw) !important;
+  }
+}
