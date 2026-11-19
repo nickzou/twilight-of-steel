@@ -1,0 +1,11 @@
+# Local development only. Compose loads this automatically with a plain
+# `docker compose up`; production passes -f explicitly, so it is never used
+# there (and deploys don't copy it to the server).
+#
+# Mounts the theme over the copy baked into the image, so edits show up on
+# refresh without a rebuild.
+
+services:
+  wordpress:
+    volumes:
+      - ./twilight-of-steel:/var/www/html/wp-content/themes/twilight-of-steel:ro
