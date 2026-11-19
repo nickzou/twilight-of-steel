@@ -51,6 +51,7 @@
       "text": "var(--wp--preset--color--contrast)"
     },
     "typography": {
+      "fontFamily": "var(--wp--preset--font-family--firjar)",
       "lineHeight": "1.6"
     },
     "spacing": {
