@@ -43,13 +43,10 @@ main:has(> .codex-hero .wp-block-post-featured-image) {
 
 /*
  * From 600px, WordPress's own breakpoint where the navigation expands, the
- * hero goes back into the page: content width, title below the image.
+ * hero stops sticking and the title moves below the image. On tablets the image
+ * itself still runs edge to edge, flush under the header.
  */
 @media (min-width: 600px) {
-  main:has(> .codex-hero .wp-block-post-featured-image) {
-    margin-block-start: var(--wp--style--block-gap);
-  }
-
   .codex-hero:has(.wp-block-post-featured-image) {
     position: static;
     /* biome-ignore lint/complexity/noImportantStyles: overrides the full-bleed margin above, which needs !important */
@@ -62,6 +59,22 @@ main:has(> .codex-hero .wp-block-post-featured-image) {
     padding: 0;
     color: inherit;
     background: none;
+  }
+
+  /* 50% - 50vw cancels the page's side padding and centring, as on phones. */
+  .codex-hero .wp-block-post-featured-image {
+    margin-inline: calc(50% - 50vw);
+  }
+}
+
+/* From 1024px, desktop: the image goes back to content width, below the gap. */
+@media (min-width: 1024px) {
+  main:has(> .codex-hero .wp-block-post-featured-image) {
+    margin-block-start: var(--wp--style--block-gap);
+  }
+
+  .codex-hero .wp-block-post-featured-image {
+    margin-inline: 0;
   }
 }
 
