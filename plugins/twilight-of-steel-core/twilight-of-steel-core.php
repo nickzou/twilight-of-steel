@@ -12,9 +12,13 @@
 
 defined('ABSPATH') || exit;
 
+// Composer libraries (Carbon Fields). The project's composer.json installs them
+// here, so the plugin that uses them carries them.
+require_once __DIR__ . '/vendor/autoload.php';
+
 // Content lives in this plugin, not the theme, so it survives a theme change.
 // Each file in inc/ owns one content type or taxonomy.
-foreach (['codex', 'codex-types'] as $file) {
+foreach (['fields', 'codex', 'codex-types'] as $file) {
     require_once __DIR__ . "/inc/{$file}.php";
 }
 
