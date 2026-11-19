@@ -16,3 +16,16 @@ add_action('wp_enqueue_scripts', function () {
         );
     }
 });
+
+// Alpine.js, for declarative interactive pieces. Registered for any feature to
+// enqueue; it loads only on pages that use it. Registered on init because
+// block templates render, and enqueue, before wp_enqueue_scripts runs.
+add_action('init', function () {
+    wp_register_script(
+        'alpinejs',
+        get_theme_file_uri('assets/js/vendor/alpine.min.js'),
+        [],
+        twilight_of_steel_asset_version('assets/js/vendor/alpine.min.js'),
+        ['strategy' => 'defer']
+    );
+});

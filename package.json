@@ -5,10 +5,15 @@
   "scripts": {
     "check": "biome check .",
     "format": "biome format --write .",
-    "fix": "biome check --write ."
+    "fix": "biome check --write .",
+    "postinstall": "node scripts/vendor.js"
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.7"
   },
-  "packageManager": "pnpm@12.18.0"
+  "packageManager": "pnpm@12.18.0",
+  "dependencies": {
+    "alpinejs": "3.17.5",
+    "lucide-static": "1.68.0"
+  }
 }

@@ -6,7 +6,13 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!composer.lock", "!pnpm-lock.yaml"]
+    "includes": [
+      "**",
+      "!composer.lock",
+      "!pnpm-lock.yaml",
+      "!**/vendor",
+      "!twilight-of-steel/assets/icons"
+    ]
   },
   "formatter": {
     "enabled": true,
