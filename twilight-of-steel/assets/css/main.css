@@ -9,37 +9,58 @@
 }
 
 /*
- * On phones, an entry with a featured image gets a collapsing banner. The hero
- * runs edge to edge with the title over the bottom of the image. It scrolls
- * until 15svh of its 35svh height is off screen (the negative top), then
- * sticks, leaving a 20svh strip with the title while the entry scrolls under.
- *
- * 600px matches WordPress's own mobile breakpoint, where the navigation
- * collapses. Entries without a featured image keep the plain title.
+ * An entry with a featured image gets a collapsing banner. The hero runs edge
+ * to edge with the title over the bottom of the image. It scrolls until 15svh
+ * of its 35svh height is off screen (the negative top), then sticks, leaving a
+ * 20svh strip with the title while the entry scrolls under. Entries without a
+ * featured image keep the plain title.
  */
-@media (max-width: 599px) {
-  /* Drop the block gap above main so the banner sits flush under the header. */
+
+/* Drop the block gap above main so the banner sits flush under the header. */
+main:has(> .codex-hero .wp-block-post-featured-image) {
+  margin-block-start: 0;
+}
+
+.codex-hero:has(.wp-block-post-featured-image) {
+  position: sticky;
+  top: calc(20svh - 35svh);
+  z-index: 1;
+  /* 50% - 50vw cancels the page's side padding, whatever it is. */
+  /* biome-ignore lint/complexity/noImportantStyles: the constrained layout centres its children with margin: auto !important */
+  margin-inline: calc(50% - 50vw) !important;
+}
+
+.codex-hero:has(.wp-block-post-featured-image) .wp-block-post-title {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  margin: 0;
+  /* 1.5rem matches the page's side padding (theme.json), so the title lines up with the text below. */
+  padding: 2.5rem 1.5rem 0.75rem;
+  color: #fff;
+  background: linear-gradient(to top, rgb(0 0 0 / 0.7), transparent);
+}
+
+/*
+ * From 600px, WordPress's own breakpoint where the navigation expands, the
+ * hero goes back into the page: content width, title below the image.
+ */
+@media (min-width: 600px) {
   main:has(> .codex-hero .wp-block-post-featured-image) {
-    margin-block-start: 0;
+    margin-block-start: var(--wp--style--block-gap);
   }
 
   .codex-hero:has(.wp-block-post-featured-image) {
-    position: sticky;
-    top: calc(20svh - 35svh);
-    z-index: 1;
-    /* 50% - 50vw cancels the page's side padding, whatever it is. */
-    /* biome-ignore lint/complexity/noImportantStyles: the constrained layout centres its children with margin: auto !important */
-    margin-inline: calc(50% - 50vw) !important;
+    position: static;
+    /* biome-ignore lint/complexity/noImportantStyles: overrides the full-bleed margin above, which needs !important */
+    margin-inline: auto !important;
   }
 
   .codex-hero:has(.wp-block-post-featured-image) .wp-block-post-title {
-    position: absolute;
-    inset-inline: 0;
-    bottom: 0;
-    margin: 0;
-    /* 1.5rem matches the page's side padding (theme.json), so the title lines up with the text below. */
-    padding: 2.5rem 1.5rem 0.75rem;
-    color: #fff;
-    background: linear-gradient(to top, rgb(0 0 0 / 0.7), transparent);
+    position: static;
+    margin: var(--wp--style--block-gap) 0 0;
+    padding: 0;
+    color: inherit;
+    background: none;
   }
 }
