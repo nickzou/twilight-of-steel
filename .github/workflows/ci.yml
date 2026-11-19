@@ -14,8 +14,8 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      # postinstall copies Alpine into the theme; fail if the committed copy is stale.
-      - run: git diff --exit-code twilight-of-steel/assets/js/vendor
+      # postinstall copies Alpine and the icons into the theme; fail if the committed copies are stale.
+      - run: git diff --exit-code twilight-of-steel/assets/js/vendor twilight-of-steel/assets/icons
       - run: pnpm check
 
   build:

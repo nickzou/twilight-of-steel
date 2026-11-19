@@ -60,7 +60,8 @@ add_filter('render_block_core/post-content', function (string $content): string 
     }
 
     return sprintf(
-        '<details class="codex-contents" x-data @click.outside="$el.open = false"><summary>%s</summary><nav aria-label="%s"><ol>%s</ol></nav></details>',
+        '<details class="codex-contents" x-data @click.outside="$el.open = false"><summary>%s%s</summary><nav aria-label="%s"><ol>%s</ol></nav></details>',
+        twilight_of_steel_icon('chevron-down'),
         esc_html__('Contents', 'twilight-of-steel'),
         esc_attr__('Sections', 'twilight-of-steel'),
         $items

@@ -88,9 +88,35 @@ main:has(> .codex-hero .wp-block-post-featured-image) .codex-contents {
 }
 
 .codex-contents summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.75rem 1.5rem;
   font-weight: 600;
   cursor: pointer;
+  /* Hide the browser's triangle; the Lucide chevron replaces it. */
+  list-style: none;
+}
+
+.codex-contents summary::-webkit-details-marker {
+  display: none;
+}
+
+/* The chevron points right while the menu is closed, and down while open. */
+.codex-contents summary svg {
+  width: 1.25em;
+  height: 1.25em;
+  rotate: -90deg;
+}
+
+.codex-contents[open] summary svg {
+  rotate: 0deg;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .codex-contents summary svg {
+    transition: rotate 0.2s;
+  }
 }
 
 .codex-contents nav {

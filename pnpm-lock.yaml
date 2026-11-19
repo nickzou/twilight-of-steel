@@ -169,6 +169,9 @@ importers:
       alpinejs:
         specifier: 3.17.5
         version: 3.17.5
+      lucide-static:
+        specifier: 1.68.0
+        version: 1.68.0
     devDependencies:
       '@biomejs/biome':
         specifier: 2.6.7
@@ -254,6 +257,9 @@ packages:
   alpinejs@3.17.5:
     resolution: {integrity: sha512-XewMqRC6zjy8iaUPn86dxjvooAsNai3hUtQbdn0A5H2w7Jt10xHGZ1SczN5+Dvp3UKkuSEt9moy/UaUWOwKdnQ==}
 
+  lucide-static@1.68.0:
+    resolution: {integrity: sha512-sInxhr771A4UUu8D1gXZjj3mmGwqRTYDVNbfwN25Yx6vwA9Hnq9t+P9rF49UW8MirAe1iaYpqe+3vq99bbH8zg==}
+
 snapshots:
 
   '@biomejs/biome@2.6.7':
@@ -308,3 +314,5 @@ snapshots:
   alpinejs@3.17.5:
     dependencies:
       '@vue/reactivity': 3.5.45
+
+  lucide-static@1.68.0: {}
