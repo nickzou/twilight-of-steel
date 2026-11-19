@@ -1,0 +1,6 @@
+alpine.min.js is Alpine.js (https://alpinejs.dev), dist/cdn.min.js from the alpinejs npm package.
+Copyright © 2019-2021 Caleb Porzio and contributors.
+Licensed under the MIT License: https://github.com/alpinejs/alpine/blob/main/LICENSE.md
+
+The version is pinned in package.json. pnpm's postinstall script copies the file here;
+to update, run `pnpm add --save-exact alpinejs@<version>` and commit the new copy.

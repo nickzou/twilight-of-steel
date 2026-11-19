@@ -5,10 +5,14 @@
   "scripts": {
     "check": "biome check .",
     "format": "biome format --write .",
-    "fix": "biome check --write ."
+    "fix": "biome check --write .",
+    "postinstall": "cp node_modules/alpinejs/dist/cdn.min.js twilight-of-steel/assets/js/vendor/alpine.min.js"
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.7"
   },
-  "packageManager": "pnpm@12.18.0"
+  "packageManager": "pnpm@12.18.0",
+  "dependencies": {
+    "alpinejs": "3.17.5"
+  }
 }

@@ -6,7 +6,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!composer.lock", "!pnpm-lock.yaml"]
+    "includes": ["**", "!composer.lock", "!pnpm-lock.yaml", "!**/vendor"]
   },
   "formatter": {
     "enabled": true,

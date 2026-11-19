@@ -165,6 +165,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      alpinejs:
+        specifier: 3.17.5
+        version: 3.17.5
     devDependencies:
       '@biomejs/biome':
         specifier: 2.6.7
@@ -241,6 +245,15 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@vue/reactivity@3.5.45':
+    resolution: {integrity: sha512-WqkyubNWpI4OYBOipSrjIssMdJO8K1i9Zts/Wm8Er10/0msOEwCyWWWvZnAI7WW3kQsTong6DJp8Cbb+vd4cPA==}
+
+  '@vue/shared@3.5.45':
+    resolution: {integrity: sha512-ue9fgHmVNPlP7iW3+cxoBX/Cnlw53dHlVSw0JKGY6z1lObg8pHoj928M2nzG4/yVsMZ3NaRZ2s2z61uC16NDwQ==}
+
+  alpinejs@3.17.5:
+    resolution: {integrity: sha512-XewMqRC6zjy8iaUPn86dxjvooAsNai3hUtQbdn0A5H2w7Jt10xHGZ1SczN5+Dvp3UKkuSEt9moy/UaUWOwKdnQ==}
+
 snapshots:
 
   '@biomejs/biome@2.6.7':
@@ -285,3 +298,13 @@ snapshots:
 
   '@biomejs/cli-win32-x64@2.6.7':
     optional: true
+
+  '@vue/reactivity@3.5.45':
+    dependencies:
+      '@vue/shared': 3.5.45
+
+  '@vue/shared@3.5.45': {}
+
+  alpinejs@3.17.5:
+    dependencies:
+      '@vue/reactivity': 3.5.45
