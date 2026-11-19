@@ -10,9 +10,9 @@
 
 /*
  * An entry with a featured image gets a collapsing banner. The hero runs edge
- * to edge with the title over the bottom of the image. It scrolls until 15svh
+ * to edge with the title over the bottom of the image. It scrolls until 10svh
  * of its 35svh height is off screen (the negative top), then sticks, leaving a
- * 20svh strip with the title while the entry scrolls under. Entries without a
+ * 25svh strip with the title while the entry scrolls under. Entries without a
  * featured image keep the plain title.
  */
 
@@ -23,7 +23,7 @@ main:has(> .codex-hero .wp-block-post-featured-image) {
 
 .codex-hero:has(.wp-block-post-featured-image) {
   position: sticky;
-  top: calc(20svh - 35svh);
+  top: calc(25svh - 35svh);
   z-index: 1;
   /* 50% - 50vw cancels the page's side padding, whatever it is. */
   /* biome-ignore lint/complexity/noImportantStyles: the constrained layout centres its children with margin: auto !important */
