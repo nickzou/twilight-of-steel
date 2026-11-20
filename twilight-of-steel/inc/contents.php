@@ -2,7 +2,8 @@
 
 // "Contents" menu for codex entries: a dropdown linking to each h2 in the
 // entry. It is a <details> element, so it opens and closes without JavaScript;
-// Alpine only closes it after a jump or a tap outside it.
+// Alpine closes it after a jump or a tap outside it, and marks the link to the
+// section being read (assets/js/codex-contents.js).
 
 add_filter('render_block_core/post-content', function (string $content): string {
     if (!is_singular('codex')) {
@@ -52,15 +53,26 @@ add_filter('render_block_core/post-content', function (string $content): string 
         return $content;
     }
 
+    wp_enqueue_script(
+        'twilight-of-steel-codex-contents',
+        get_theme_file_uri('assets/js/codex-contents.js'),
+        [],
+        twilight_of_steel_asset_version('assets/js/codex-contents.js'),
+        ['strategy' => 'defer']
+    );
     wp_enqueue_script('alpinejs');
 
     $items = '';
     foreach ($headings as [$id, $text]) {
-        $items .= sprintf('<li><a href="#%s" @click="$root.open = false">%s</a></li>', esc_attr($id), esc_html($text));
+        $items .= sprintf(
+            '<li><a href="#%s" :aria-current="active === $el.hash.slice(1) && \'location\'" @click="$root.open = false">%s</a></li>',
+            esc_attr($id),
+            esc_html($text)
+        );
     }
 
     return sprintf(
-        '<details class="codex-contents" x-data @click.outside="$el.open = false"><summary>%s%s</summary><nav aria-label="%s"><ol>%s</ol></nav></details>',
+        '<details class="codex-contents" x-data="codexContents" @click.outside="$el.open = false"><summary>%s%s</summary><nav aria-label="%s"><ol>%s</ol></nav></details>',
         twilight_of_steel_icon('chevron-down'),
         esc_html__('Contents', 'twilight-of-steel'),
         esc_attr__('Sections', 'twilight-of-steel'),

@@ -79,25 +79,28 @@ main:has(> .codex-hero .wp-block-post-featured-image) {
 }
 
 /*
- * Codex contents menu: a bar that sticks to the top of the screen, under the
- * banner when there is one, and opens a list of the entry's sections. The list
- * drops down over the entry rather than pushing it down. On phones the bar runs
- * edge to edge like the banner, so text doesn't show beside it as it scrolls.
+ * Codex contents menu: the first thing in .codex-body. Up to 1024px it is a bar
+ * that sticks to the top of the screen, under the banner when there is one, and
+ * opens a list of the entry's sections. The list drops down over the entry
+ * rather than pushing it down. On phones the bar runs edge to edge like the
+ * banner, so text doesn't show beside it as it scrolls.
  */
 .codex-contents {
   position: sticky;
   top: 0;
   z-index: 1;
-  /* biome-ignore lint/complexity/noImportantStyles: the constrained layout centres its children with margin: auto !important */
-  margin-inline: calc(50% - 50vw) !important;
+  margin-inline: calc(50% - 50vw);
   background: var(--wp--preset--color--base);
   border-block-end: 1px solid rgb(0 0 0 / 0.15);
 }
 
 /* Sit flush under the banner, and stick under its strip, which ends at 25svh. */
+main:has(> .codex-hero .wp-block-post-featured-image) > .codex-body {
+  margin-block-start: 0;
+}
+
 main:has(> .codex-hero .wp-block-post-featured-image) .codex-contents {
   top: 25svh;
-  margin-block-start: 0;
 }
 
 .codex-contents summary {
@@ -153,6 +156,11 @@ main:has(> .codex-hero .wp-block-post-featured-image) .codex-contents {
   color: inherit;
 }
 
+/* The section being read (assets/js/codex-contents.js). */
+.codex-contents a[aria-current] {
+  font-weight: 600;
+}
+
 /* Scroll to a section rather than jump, unless the reader prefers less motion. */
 @media (prefers-reduced-motion: no-preference) {
   html:has(.codex-contents) {
@@ -175,13 +183,15 @@ main:has(> .codex-hero .wp-block-post-featured-image)
   .codex-contents {
     /* Below the admin bar, which is fixed from 600px when logged in. */
     top: var(--wp-admin--admin-bar--height, 0px);
-    /* biome-ignore lint/complexity/noImportantStyles: overrides the full-bleed margin above, which needs !important */
-    margin-inline: auto !important;
+    margin-inline: 0;
+  }
+
+  main:has(> .codex-hero .wp-block-post-featured-image) > .codex-body {
+    margin-block-start: var(--wp--style--block-gap);
   }
 
   main:has(> .codex-hero .wp-block-post-featured-image) .codex-contents {
     top: var(--wp-admin--admin-bar--height, 0px);
-    margin-block-start: var(--wp--style--block-gap);
   }
 
   .codex-contents summary {
@@ -197,5 +207,85 @@ main:has(> .codex-hero .wp-block-post-featured-image)
     .wp-block-post-content
     h2[id] {
     scroll-margin-top: calc(var(--wp-admin--admin-bar--height, 0px) + 4rem);
+  }
+}
+
+/*
+ * From 1024px, desktop: an entry with a contents menu gets two columns. The
+ * menu becomes a sidebar that stays open and sticks beside the text, and the
+ * hero widens to span both columns. Showing a closed <details> needs
+ * ::details-content; browsers without it keep the dropdown.
+ */
+@supports selector(::details-content) {
+  @media (min-width: 1024px) {
+    main:has(.codex-contents) > .codex-hero,
+    .codex-body:has(> .codex-contents) {
+      max-width: calc(var(--wp--style--global--content-size) + 17rem);
+    }
+
+    .codex-body:has(> .codex-contents) {
+      display: grid;
+      grid-template-columns: 14rem minmax(0, 1fr);
+      column-gap: 3rem;
+      align-items: start;
+    }
+
+    .codex-body > .codex-contents + * {
+      margin-block-start: 0;
+    }
+
+    .codex-contents,
+    main:has(> .codex-hero .wp-block-post-featured-image) .codex-contents {
+      top: calc(var(--wp-admin--admin-bar--height, 0px) + 1.5rem);
+      background: none;
+      border: 0;
+    }
+
+    .codex-contents::details-content {
+      content-visibility: visible;
+    }
+
+    /* The summary becomes a plain label: nothing to open or close. */
+    .codex-contents summary {
+      padding: 0 0 0.5rem;
+      font-size: var(--wp--preset--font-size--small);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .codex-contents summary svg {
+      display: none;
+    }
+
+    .codex-contents nav {
+      position: static;
+      max-height: calc(100svh - var(--wp-admin--admin-bar--height, 0px) - 6rem);
+      background: none;
+      box-shadow: none;
+    }
+
+    .codex-contents ol {
+      padding: 0;
+      list-style: none;
+    }
+
+    .codex-contents li a {
+      padding: 0.3rem 0 0.3rem 0.75rem;
+      border-inline-start: 2px solid rgb(0 0 0 / 0.1);
+      text-decoration: none;
+    }
+
+    .codex-contents a[aria-current] {
+      border-inline-start-color: currentColor;
+    }
+
+    .wp-block-post-content h2[id],
+    main:has(> .codex-hero .wp-block-post-featured-image)
+      .wp-block-post-content
+      h2[id] {
+      scroll-margin-top: calc(var(--wp-admin--admin-bar--height, 0px) + 1.5rem);
+    }
   }
 }
