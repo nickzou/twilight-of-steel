@@ -29,3 +29,13 @@ add_action('init', function () {
         ['strategy' => 'defer']
     );
 });
+
+// Alpine starts as soon as it runs, so the components a page registers with
+// Alpine.data have to load before it. Move it to the end of the queue, after
+// every feature has enqueued its component.
+add_action('wp_enqueue_scripts', function () {
+    if (wp_script_is('alpinejs')) {
+        wp_dequeue_script('alpinejs');
+        wp_enqueue_script('alpinejs');
+    }
+}, 100);
