@@ -3,7 +3,7 @@
 // The Codex: the world-building reference. Entries are hierarchical, so a place
 // can sit under its region. Entry types live in codex-types.php.
 
-function twilight_of_steel_register_codex(): void
+function twilight_register_codex(): void
 {
     register_post_type('codex', [
         'labels' => [
@@ -30,7 +30,7 @@ function twilight_of_steel_register_codex(): void
         'rewrite' => ['slug' => 'codex', 'with_front' => false],
     ]);
 }
-add_action('init', 'twilight_of_steel_register_codex');
+add_action('init', 'twilight_register_codex');
 
 // The Codex reads like a reference: alphabetical, and long enough per page to browse.
 add_action('pre_get_posts', function (WP_Query $query) {

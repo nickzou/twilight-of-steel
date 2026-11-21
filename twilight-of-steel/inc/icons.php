@@ -3,7 +3,7 @@
 // Lucide icons (assets/icons, copied from lucide-static by scripts/vendor.js),
 // printed inline so they take the text colour. Decorative: hidden from screen
 // readers, so the text beside an icon has to carry its meaning.
-function twilight_of_steel_icon(string $name): string
+function twilight_icon(string $name): string
 {
     static $cache = [];
 

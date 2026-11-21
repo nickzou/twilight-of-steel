@@ -12,20 +12,20 @@
 
 defined('ABSPATH') || exit;
 
-// Composer libraries (Carbon Fields). The project's composer.json installs them
-// here, so the plugin that uses them carries them.
+// Composer libraries (Carbon Fields, BladeOne). The project's composer.json
+// installs them here, so the plugin that uses them carries them.
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Content lives in this plugin, not the theme, so it survives a theme change.
 // Each file in inc/ owns one content type or taxonomy.
-foreach (['fields', 'codex', 'codex-types'] as $file) {
+foreach (['fields', 'views', 'codex', 'codex-types', 'timeline'] as $file) {
     require_once __DIR__ . "/inc/{$file}.php";
 }
 
 // New post types and taxonomies need their URLs registered once.
 register_activation_hook(__FILE__, function () {
-    twilight_of_steel_register_codex_types();
-    twilight_of_steel_register_codex();
+    twilight_register_codex_types();
+    twilight_register_codex();
     flush_rewrite_rules();
 });
 

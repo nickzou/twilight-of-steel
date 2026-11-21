@@ -1,0 +1,64 @@
+/*
+ * Timeline block: a line down the left with a marker at each event. Colours
+ * come from the text colour, so the block fits whatever surrounds it.
+ */
+.timeline {
+  --timeline-marker: 0.75rem;
+  margin-inline: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline-event {
+  position: relative;
+  padding-inline-start: 2rem;
+  padding-block-end: 2rem;
+}
+
+/* The line: runs from each marker down to the next. */
+.timeline-event::before {
+  content: "";
+  position: absolute;
+  /* Ends at the next event's marker, which sits 0.4rem into that event. */
+  inset-block: 0.5rem -0.4rem;
+  inset-inline-start: calc(var(--timeline-marker) / 2 - 1px);
+  border-inline-start: 2px solid
+    color-mix(in srgb, currentColor 20%, transparent);
+}
+
+.timeline-event:last-child::before {
+  display: none;
+}
+
+/* The marker, level with the date. */
+.timeline-event::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 0.4rem;
+  inset-inline-start: 0;
+  width: var(--timeline-marker);
+  height: var(--timeline-marker);
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.timeline-event:last-child {
+  padding-block-end: 0;
+}
+
+.timeline-date {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.timeline-title {
+  margin: 0.25rem 0 0;
+}
+
+.timeline-description > p {
+  margin-block-start: 0;
+}
