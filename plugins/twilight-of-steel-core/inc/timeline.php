@@ -3,7 +3,7 @@
 // Timeline block: a vertical list of events, in the order they're entered.
 // Dates are free text in the world's own calendar ("Year 312, Third Age"),
 // so nothing is parsed or sorted. Built with Carbon Fields: the editor shows
-// the fields as a form, and this file's render callback draws the block.
+// the fields as a form, and views/timeline.blade.php draws the block.
 
 use Carbon_Fields\Block;
 use Carbon_Fields\Field;
@@ -47,36 +47,34 @@ add_action('carbon_fields_register_fields', function () {
         ->set_render_callback('twilight_of_steel_render_timeline');
 });
 
+// Turns the saved fields into plain values for views/timeline.blade.php, so
+// the template only lays them out.
 function twilight_of_steel_render_timeline(array $fields, array $attributes): void
 {
-    $events = array_filter($fields['events'] ?? [], fn($event) => ($event['title'] ?? '') !== '');
+    $events = [];
+    foreach ($fields['events'] ?? [] as $event) {
+        $title = trim($event['title'] ?? '');
+        if ($title === '') {
+            continue;
+        }
+
+        $entry_id = (int) ($event['entry'][0]['id'] ?? 0);
+        $description = trim($event['description'] ?? '');
+        $events[] = [
+            'date' => trim($event['date'] ?? ''),
+            'title' => $title,
+            // Raw: the template's {{ }} escapes it.
+            'url' => $entry_id ? (string) get_permalink($entry_id) : '',
+            'description' => $description === '' ? '' : wp_kses_post(wpautop($description)),
+        ];
+    }
+
     if (!$events) {
         return;
     }
 
-    $class = trim('timeline ' . ($attributes['className'] ?? ''));
-?>
-    <ol class="<?= esc_attr($class) ?>">
-        <?php foreach ($events as $event) :
-            $entry_id = (int) ($event['entry'][0]['id'] ?? 0);
-            $url = $entry_id ? get_permalink($entry_id) : '';
-        ?>
-            <li class="timeline-event">
-                <?php if (($event['date'] ?? '') !== '') : ?>
-                    <p class="timeline-date"><?= esc_html($event['date']) ?></p>
-                <?php endif; ?>
-                <h3 class="timeline-title">
-                    <?php if ($url) : ?>
-                        <a href="<?= esc_url($url) ?>"><?= esc_html($event['title']) ?></a>
-                    <?php else : ?>
-                        <?= esc_html($event['title']) ?>
-                    <?php endif; ?>
-                </h3>
-                <?php if (($event['description'] ?? '') !== '') : ?>
-                    <div class="timeline-description"><?= wp_kses_post(wpautop($event['description'])) ?></div>
-                <?php endif; ?>
-            </li>
-        <?php endforeach; ?>
-    </ol>
-<?php
+    echo twilight_of_steel_view('timeline', [
+        'class' => trim('timeline ' . ($attributes['className'] ?? '')),
+        'events' => $events,
+    ]);
 }
