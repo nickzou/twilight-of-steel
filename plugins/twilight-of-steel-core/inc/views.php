@@ -7,7 +7,7 @@
 
 use eftec\bladeone\BladeOne;
 
-function twilight_of_steel_view(string $view, array $data = []): string
+function twilight_view(string $view, array $data = []): string
 {
     static $blade = null;
 

@@ -44,12 +44,12 @@ add_action('carbon_fields_register_fields', function () {
                         ->set_max(1),
                 ]),
         ])
-        ->set_render_callback('twilight_of_steel_render_timeline');
+        ->set_render_callback('twilight_render_timeline');
 });
 
 // Turns the saved fields into plain values for views/timeline.blade.php, so
 // the template only lays them out.
-function twilight_of_steel_render_timeline(array $fields, array $attributes): void
+function twilight_render_timeline(array $fields, array $attributes): void
 {
     $events = [];
     foreach ($fields['events'] ?? [] as $event) {
@@ -73,7 +73,7 @@ function twilight_of_steel_render_timeline(array $fields, array $attributes): vo
         return;
     }
 
-    echo twilight_of_steel_view('timeline', [
+    echo twilight_view('timeline', [
         'class' => trim('timeline ' . ($attributes['className'] ?? '')),
         'events' => $events,
     ]);

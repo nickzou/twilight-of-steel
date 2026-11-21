@@ -24,8 +24,8 @@ foreach (['fields', 'views', 'codex', 'codex-types', 'timeline'] as $file) {
 
 // New post types and taxonomies need their URLs registered once.
 register_activation_hook(__FILE__, function () {
-    twilight_of_steel_register_codex_types();
-    twilight_of_steel_register_codex();
+    twilight_register_codex_types();
+    twilight_register_codex();
     flush_rewrite_rules();
 });
 

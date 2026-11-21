@@ -3,7 +3,7 @@
 // Entry types for the Codex: Character, Place, Faction and so on. An entry can
 // have more than one, and types can nest.
 
-function twilight_of_steel_register_codex_types(): void
+function twilight_register_codex_types(): void
 {
     register_taxonomy('codex_type', ['codex'], [
         'labels' => [
@@ -25,4 +25,4 @@ function twilight_of_steel_register_codex_types(): void
 // Priority 9, ahead of the Codex post type (10): rewrite rules match in
 // registration order, and /codex/type/<slug> must be tried before the
 // hierarchical /codex/<entry> rule catches it.
-add_action('init', 'twilight_of_steel_register_codex_types', 9);
+add_action('init', 'twilight_register_codex_types', 9);
