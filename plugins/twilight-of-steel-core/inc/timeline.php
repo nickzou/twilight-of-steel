@@ -35,8 +35,11 @@ add_action('carbon_fields_register_fields', function () {
                 ->add_fields([
                     Field::make('text', 'date', __('Date', 'twilight-of-steel-core'))
                         ->set_help_text(__('As readers see it, e.g. “Year 312, Third Age”.', 'twilight-of-steel-core')),
+                    // Not set_required(): Carbon Fields enforces it by locking
+                    // post saving, drafts included, while any title is empty.
+                    // The render callback skips untitled events instead.
                     Field::make('text', 'title', __('Title', 'twilight-of-steel-core'))
-                        ->set_required(true),
+                        ->set_help_text(__('Events without a title aren’t shown.', 'twilight-of-steel-core')),
                     Field::make('text', 'description', __('Description', 'twilight-of-steel-core')),
                     Field::make('association', 'entry', __('Codex entry', 'twilight-of-steel-core'))
                         ->set_help_text(__('Optional: the title links to this entry.', 'twilight-of-steel-core'))
