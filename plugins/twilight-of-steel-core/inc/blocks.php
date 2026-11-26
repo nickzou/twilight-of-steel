@@ -1,6 +1,6 @@
 <?php
 
-// Custom blocks built from src/blocks/<name>/ (block.json plus React code) into
+// Custom blocks built from src/blocks/<name>/ (block.json plus TypeScript/TSX) into
 // build/ by @wordpress/scripts: `pnpm build`, or `pnpm start` to rebuild on
 // save. build/ isn't committed; the Docker image builds it, and locally it
 // needs a build after pulling. Carbon Fields blocks (like the timeline) are
