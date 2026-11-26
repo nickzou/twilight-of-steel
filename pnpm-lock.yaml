@@ -203,6 +203,9 @@ importers:
       '@wordpress/scripts':
         specifier: 37.1.0
         version: 37.1.0(@playwright/test@1.65.1)(@types/node@26.6.7)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(@typescript-eslint/parser@8.74.0(eslint@10.15.0(supports-color@10.2.2))(supports-color@10.2.2)(typescript@7.0.2))(@wordpress/theme@5.0.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(csso@5.0.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@10.2.2)(svgo@3.3.5)(type-fest@5.10.0)(typescript@7.0.2)
+      comicaljs:
+        specifier: 0.4.2
+        version: 0.4.2
       typescript:
         specifier: 7.0.2
         version: 7.0.2
@@ -3394,6 +3397,9 @@ packages:
   comctx@1.7.7:
     resolution: {integrity: sha512-ul2WAOR50T9IB9DixjZrUNZgXOjNuSeLnvUKIDLHzDOHc/uwBD7r7q7Xlb7YpI5M+yR4qbJQOblYYIbjQhy0VA==}
 
+  comicaljs@0.4.2:
+    resolution: {integrity: sha512-VCFBe/gL/EwnY1K88cPhSJr2/b1j6WOnWxYqn2RLl+KkQ7LJKWius3gD9bbNYlPRwxpOomyxR9Ih0DhNMzNDMw==}
+
   commander@10.0.1:
     resolution: {integrity: sha512-y4Mg2tXshplEbSGzx7amzPwKKOCGuoSRP/CjEdwwk0FOGlUbq6lKuoyDZTNZkmxHdJtp54hdfY/JUrdL7Xfdug==}
     engines: {node: '>=14'}
@@ -5312,6 +5318,10 @@ packages:
   p-try@2.2.0:
     resolution: {integrity: sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==}
     engines: {node: '>=6'}
+
+  paper@0.12.8:
+    resolution: {integrity: sha512-aFzTOs4UgLPVJaCHkWp4KD9H3e5ibM61h+wNEjN4ZJu+JMLoivm1GKU2PdqL4DL/Ye490cQOIuUmeSz8dVdN6Q==}
+    engines: {node: '>=8.0.0'}
 
   param-case@3.0.4:
     resolution: {integrity: sha512-RXlj7zCYokReqWpOPH9oYivUzLYZ5vAPIfEmCTNViosC78F8F0H9y7T7gG2M39ymgutxF5gcFEsyZQSph9Bp3A==}
@@ -10498,6 +10508,10 @@ snapshots:
 
   comctx@1.7.7: {}
 
+  comicaljs@0.4.2:
+    dependencies:
+      paper: 0.12.8
+
   commander@10.0.1: {}
 
   commander@15.0.0: {}
@@ -12684,6 +12698,8 @@ snapshots:
       is-network-error: 1.3.2
 
   p-try@2.2.0: {}
+
+  paper@0.12.8: {}
 
   param-case@3.0.4:
     dependencies:

@@ -14,8 +14,8 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      # postinstall copies Alpine and the icons into the theme; fail if the committed copies are stale.
-      - run: git diff --exit-code twilight-of-steel/assets/js/vendor twilight-of-steel/assets/icons
+      # postinstall copies Alpine, the icons and comical-js into the theme and plugin; fail if the committed copies are stale.
+      - run: git diff --exit-code twilight-of-steel/assets/js/vendor twilight-of-steel/assets/icons plugins/twilight-of-steel-core/assets/js/vendor
       - run: pnpm check
       # The block build (Babel) strips types without checking them.
       - run: pnpm typecheck
