@@ -22,6 +22,7 @@
     "@wordpress/element": "10.1.0",
     "@wordpress/i18n": "7.1.0",
     "@wordpress/scripts": "37.1.0",
+    "comicaljs": "0.4.2",
     "typescript": "7.0.2"
   },
   "packageManager": "pnpm@12.18.0",

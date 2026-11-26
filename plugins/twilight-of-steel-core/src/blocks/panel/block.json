@@ -5,7 +5,7 @@
   "title": "Panel",
   "category": "media",
   "icon": "format-image",
-  "description": "One panel of a comic page: its artwork, cropped to the panel's shape.",
+  "description": "One panel of a comic page: its artwork, cropped to the panel's shape, with speech bubbles.",
   "textdomain": "twilight-of-steel-core",
   "parent": ["twilight/comic-page"],
   "usesContext": ["twilight/pageLayout"],
@@ -30,6 +30,14 @@
         "x": 0.5,
         "y": 0.5
       }
+    },
+    "bubbles": {
+      "type": "array",
+      "default": []
+    },
+    "outlines": {
+      "type": "string",
+      "default": ""
     },
     "style": {
       "type": "object",
