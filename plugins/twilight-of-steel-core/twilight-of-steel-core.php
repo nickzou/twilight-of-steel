@@ -18,7 +18,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 // Content lives in this plugin, not the theme, so it survives a theme change.
 // Each file in inc/ owns one content type or taxonomy.
-foreach (['fields', 'views', 'codex', 'codex-types', 'timeline', 'autosave'] as $file) {
+foreach (['fields', 'views', 'codex', 'codex-types', 'timeline', 'autosave', 'blocks'] as $file) {
     require_once __DIR__ . "/inc/{$file}.php";
 }
 

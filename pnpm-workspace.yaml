@@ -1,0 +1,6 @@
+# Dependencies' install scripts that pnpm may skip. None are needed: core-js's
+# only prints a banner, and @parcel/watcher ships prebuilt binaries.
+allowBuilds:
+  '@parcel/watcher': false
+  core-js: false
+  core-js-pure: false

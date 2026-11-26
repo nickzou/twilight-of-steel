@@ -6,9 +6,8 @@
 node_modules
 vendor
 plugins/twilight-of-steel-core/vendor
+plugins/twilight-of-steel-core/build
 biome.json
-package.json
-pnpm-lock.yaml
 compose.yaml
 Dockerfile
 plugins/.gitkeep

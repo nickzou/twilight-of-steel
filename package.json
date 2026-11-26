@@ -6,10 +6,13 @@
     "check": "biome check .",
     "format": "biome format --write .",
     "fix": "biome check --write .",
+    "build": "wp-scripts build --webpack-src-dir=plugins/twilight-of-steel-core/src --output-path=plugins/twilight-of-steel-core/build --blocks-manifest",
+    "start": "wp-scripts start --webpack-src-dir=plugins/twilight-of-steel-core/src --output-path=plugins/twilight-of-steel-core/build --blocks-manifest",
     "postinstall": "node scripts/vendor.js"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.6.7"
+    "@biomejs/biome": "2.6.7",
+    "@wordpress/scripts": "37.1.0"
   },
   "packageManager": "pnpm@12.18.0",
   "dependencies": {

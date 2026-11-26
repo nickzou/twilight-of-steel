@@ -7,6 +7,8 @@
 !/plugins/.gitkeep
 !/plugins/twilight-of-steel-core/
 /plugins/twilight-of-steel-core/vendor/
+# Built blocks: `pnpm build` locally; the Docker image builds its own.
+/plugins/twilight-of-steel-core/build/
 /node_modules/
 
 # Local environment
