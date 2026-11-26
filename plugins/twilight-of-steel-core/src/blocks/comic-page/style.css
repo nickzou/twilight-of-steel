@@ -1,0 +1,5 @@
+/* Panels keep their own shape (aspect ratio), so rows size to the panels in
+   them, and a short panel sits at the top of its row instead of stretching. */
+.wp-block-twilight-comic-page {
+  align-items: start;
+}
