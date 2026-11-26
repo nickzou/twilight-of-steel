@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "twilight/panel",
+  "title": "Panel",
+  "category": "media",
+  "icon": "format-image",
+  "description": "One panel of a comic page: its artwork, cropped to the panel's shape.",
+  "textdomain": "twilight-of-steel-core",
+  "parent": ["twilight/comic-page"],
+  "usesContext": ["twilight/pageLayout"],
+  "attributes": {
+    "id": {
+      "type": "number"
+    },
+    "url": {
+      "type": "string"
+    },
+    "alt": {
+      "type": "string",
+      "default": ""
+    },
+    "aspectRatio": {
+      "type": "string",
+      "default": "4/3"
+    },
+    "focalPoint": {
+      "type": "object",
+      "default": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "style": {
+      "type": "object",
+      "default": {
+        "@mobile": {
+          "layout": {
+            "columnSpan": 1,
+            "rowSpan": 1
+          }
+        }
+      }
+    }
+  },
+  "supports": {
+    "html": false,
+    "reusable": false,
+    "dimensions": {}
+  },
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}

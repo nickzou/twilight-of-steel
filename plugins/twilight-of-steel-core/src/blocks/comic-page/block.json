@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "twilight/comic-page",
+  "title": "Comic page",
+  "category": "media",
+  "icon": "layout",
+  "description": "A page of a comic: panels laid out on a grid. Use Responsive editing in the preview menu to give tablets and phones their own layout.",
+  "keywords": ["comic", "panels"],
+  "textdomain": "twilight-of-steel-core",
+  "allowedBlocks": ["twilight/panel"],
+  "providesContext": {
+    "twilight/pageLayout": "layout"
+  },
+  "attributes": {
+    "layout": {
+      "type": "object",
+      "default": {
+        "type": "grid",
+        "columnCount": 6,
+        "minimumColumnWidth": null
+      }
+    },
+    "style": {
+      "type": "object",
+      "default": {
+        "spacing": {
+          "blockGap": "0.75rem"
+        },
+        "@mobile": {
+          "layout": {
+            "columnCount": 1
+          }
+        }
+      }
+    }
+  },
+  "supports": {
+    "align": ["wide", "full"],
+    "html": false,
+    "spacing": {
+      "blockGap": true,
+      "margin": ["top", "bottom"]
+    },
+    "layout": {
+      "default": {
+        "type": "grid",
+        "columnCount": 6,
+        "minimumColumnWidth": null
+      },
+      "allowSwitching": false,
+      "allowInheriting": false,
+      "allowSizingOnChildren": true,
+      "allowEditing": true
+    }
+  },
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css"
+}
