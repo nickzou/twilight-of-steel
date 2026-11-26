@@ -17,6 +17,8 @@ jobs:
       # postinstall copies Alpine and the icons into the theme; fail if the committed copies are stale.
       - run: git diff --exit-code twilight-of-steel/assets/js/vendor twilight-of-steel/assets/icons
       - run: pnpm check
+      # The block build (Babel) strips types without checking them.
+      - run: pnpm typecheck
 
   build:
     runs-on: ubuntu-latest
